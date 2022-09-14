@@ -14,7 +14,7 @@ class TagRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,6 @@ class TagRequest extends FormRequest
                 Rule::unique('tags')->ignore($this->id),
             ],
             'status'=>'required',
-            'slug' => 'required|max:255|alpha_num',
 
         ];
     }
