@@ -13,3 +13,4 @@
     {!! Form::textarea('meta_description',null,['class' => 'form-control','placeholder' => "Enter Meta Description" ,'rows' =>3]) !!}
     @include('backend.includes.form_validation_error_message',['field' => 'meta_description'])
 </div>
+{!! Form::submit('Save ' .  $panel,['class' => 'btn btn-primary']); !!}

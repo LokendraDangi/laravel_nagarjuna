@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,5 +53,11 @@ Route::prefix('/backend')->name('backend.')->group(function(){
     Route::get('/subcategory/trash',[SubcategoryController::class,'trash'])->name('subcategory.trash');
     Route::resource('subcategory', SubcategoryController::class);
 
-
+    //products
+    Route::get('product/ajax/product/deleteattribute',[ProductController::class,'deleteProductattribute'])->name('ajax.product.deleteProductattribute');
+    Route::get('product/ajax/product/deleteImage',[ProductController::class,'deleteProductImage'])->name('ajax.product.deleteProductImage');
+    Route::delete('product/force-delete/{id}',[ProductController::class,'forceDelete'])->name('product.force_delete');
+    Route::put('product/restore/{id}',[ProductController::class,'restore'])->name('product.restore');
+    Route::get('product/trash',[ProductController::class,'trash'])->name('product.trash');
+    Route::resource('product',ProductController::class);
 });

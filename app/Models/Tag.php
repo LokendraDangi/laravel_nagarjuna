@@ -12,4 +12,7 @@ class Tag extends Model
     protected $table = 'tags';
 
     protected $fillable = ['name','slug','status','created_by','updated_by','deleted_at'];
+    function products(){
+        return $this->belongsToMany(Product::class,'ProductTag','tag_id','product_id');
+    }
 }

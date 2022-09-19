@@ -1,16 +1,16 @@
 @extends('backend.layouts.master')
-@section('title','List Product')
+@section('title','tag Trash')
 @section('main-content')
 <div class="content-header">
       <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">Product Management</h1>
+            <h1 class="m-0">tag Management</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('backend.product.index')}}">Product</a></li>
-                    <li class="breadcrumb-item active">List</li>
+                    <li class="breadcrumb-item"><a href="{{route('backend.tag.index')}}">tag</a></li>
+                    <li class="breadcrumb-item active">Trash</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -35,15 +35,13 @@
               </div>
             @endif
           <div class="col-md-10">
-            <a href="{{route('backend.product.create')}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Create Product</a>
-            <a href="{{route('backend.product.trash')}}" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Go to Trash</a><br><br>
+            <a href="{{route('backend.tag.index')}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true"> tag List</a>
 
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>SN</th>
                     <th>Name</th>
-                    <th>Rank</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -51,36 +49,36 @@
                 <tbody>
                 @forelse($data['records'] as $record)
                     <tr>
-                        <td>{{$loop->iteration+($data['records']->currentPage()-1)*5}}</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{$record->name}}</td>
-                        <td>{{$record->rank}}</td>
                         <td>
                           @if ($record->status == 1)
                               <span class="text-success">Active</span>
                           @else
                               <span class="text-danger">De Active</span>
-                          @endif      
+                          @endif 
                         </td>
                         <td>
-                            <a href="{{route('backend.product.edit',$record->id)}}" class="btn btn-success btn-sm">Edit</a>
-                            <a href="{{route('backend.product.show',$record->id)}}" class="btn btn-info btn-sm">Show</a>
-                            {!! Form::open(['route' => ['backend.product.destroy',$record->id],'method' => 'DELETE','style'=>'display:inline-block']) !!}
-                              {!! Form::submit('Trash',['class'=>'btn btn-danger btn-sm']) !!}
+                            {!! Form::open(['route' => ['backend.tag.restore',$record->id],'method' => 'PUT','style'=>'display:inline-block']) !!}
+                              {!! Form::submit('Restore',['class'=>'btn btn-success btn-sm']) !!}
                             {!! Form::close() !!}
+                            {!! Form::open(['route' => ['backend.tag.force_delete',$record->id],'method' => 'DELETE','style'=>'display:inline-block']) !!}
+                              {!! Form::submit('Delete',['class'=>'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">Product not found</td>
+                        <td colspan="5">tag deleted items not found</td>
                     </tr>
-                @endforelse
 
-                <tr> <td colspan="5" style="text-align: right">{{ $data['records']->onEachSide(5)->links() }}</td></tr>
+                @endforelse
                 </tbody>
             </table>
           </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    
+  
 @endsection
