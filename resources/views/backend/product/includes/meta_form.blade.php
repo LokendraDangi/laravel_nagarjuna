@@ -1,16 +1,22 @@
 <div class="form-group">
     {!! Form::label('meta_keyword','Meta Keyword*') !!}
     {!! Form::textarea('meta_keyword',null,['class' => 'form-control','placeholder' => "Enter meta_keyword" ,'rows' =>3]) !!}
-    @include('backend.includes.form_validation_error_message',['field' => 'meta_keyword'])
+    @error('meta_keyword')
+    <span class="text text-danger">{{ $message }}</span>
+    @enderror
 </div>
 <div class="form-group">
     {!! Form::label('meta_title','Meta Title*') !!}
     {!! Form::textarea('meta_title',null,['class' => 'form-control','placeholder' => "Enter Meta Title" ,'rows' =>3]) !!}
-    @include('backend.includes.form_validation_error_message',['field' => 'meta_title'])
+    @error('meta_title')
+    <span class="text text-danger">{{ $message }}</span>
+    @enderror
 </div>
 <div class="form-group">
     {!! Form::label('meta_description','Meta Description*') !!}
     {!! Form::textarea('meta_description',null,['class' => 'form-control','placeholder' => "Enter Meta Description" ,'rows' =>3]) !!}
-    @include('backend.includes.form_validation_error_message',['field' => 'meta_description'])
+    @error('meta_description')
+    <span class="text text-danger">{{ $message }}</span>
+    @enderror
 </div>
-{!! Form::submit('Save ' .  $panel,['class' => 'btn btn-primary']); !!}
+{!! Form::submit($button,['class'=>'btn btn-primary'])!!}

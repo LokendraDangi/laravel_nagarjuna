@@ -57,19 +57,20 @@
     @enderror
 </div>
 <div class="form-group">
-    {!! Form::label('description','Description*') !!}
-    {!! Form::textarea('description',null,['class' => 'form-control','placeholder' => "Enter Description"]) !!}
-    @error('description')
-    <span class="text text-danger">{{ $message }}</span>
-    @enderror
-</div>
-<div class="form-group">
     {!! Form::label('short_description','Short Description*') !!}
     {!! Form::text('short_description',null,['class' => 'form-control','placeholder' => "Enter Short Description"]) !!}
     @error('short_description')
     <span class="text text-danger">{{ $message }}</span>
     @enderror
 </div>
+<div class="form-group">
+    {!! Form::label('description','Description*') !!}
+    {!! Form::textarea('description',null,['class' => 'form-control','placeholder' => "Enter Description"]) !!}
+    @error('description')
+    <span class="text text-danger">{{ $message }}</span>
+    @enderror
+</div>
+
 <div class="form-group">
     {!! Form::label('status','Status') !!}
     {!! Form::radio('status',1,['id'=>'basic_status_active']) !!} Active
@@ -85,5 +86,3 @@
     {!! Form::radio('feature_product',1,['id'=>'feature_active']) !!} Active
     {!! Form::radio('feature_product',0,true,['id'=>'feature_deactive']) !!} De Active
 </div>
-<a href="{{url()->previous()}}" class="btn btn-default">Cancel</a>
-{!! Form::submit($button,['class'=>'btn btn-primary'])!!}

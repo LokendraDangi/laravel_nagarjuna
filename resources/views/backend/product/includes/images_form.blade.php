@@ -9,29 +9,15 @@
         <tr>
             <th>Image</th>
             <th>Action</th>
-        </tr>
-        @if(isset($data['record']))
-            @foreach($data['record']->product_images as $images)
-                <tr>
-                    <td>
-                        <input type="hidden" name="old_image_list[]" class="form-control count" value="{{$images->id}}"/>
-                        <input type="file" name="product_image[]" class="form-control" value="{{$images->image_name}}"/>
-                        <img src="{{asset($image_path.'150_150_'.$images->image_name)}}" alt=""></td>
-                    <td>
-                        <button id="{{$images->id}}" class="btn btn-danger remove_row"><i class="fa fa-trash"></i></button>
-                        {{--<a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a>--}}
-                    </td>
-                </tr>
-            @endforeach
-        @else
+        </tr> 
         <tr>
-            <td><input type="file" name="image_title[]" class="form-control"/></td>
             <td>
-                <a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a>
+                <input type="file" name="image_title[]" class="form-control"/></td>
+            <td>
             </td>
-        </tr>
-        @endif
+        </tr>   
     </table>
     <button class="btn btn-info" type="button" id="addMoreImage"
             style="margin-bottom: 20px"> <i class="fa fa-plus"></i> Add</button>
 </div>
+

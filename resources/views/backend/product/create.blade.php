@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 @section('title','Create Product')
 @section('css')
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="{{asset('backend/plugins/select2/css/select2.min.css')}}" rel="stylesheet" />
 @endsection
 @section('main-content')
 <div class="content-header">
@@ -30,19 +30,19 @@
           <div class="col-md-8">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="basic-tab" data-toggle="tab" data-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">basic</button>
+                <button class="nav-link active" id="basic-tab" data-toggle="tab" data-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic Information</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="images-tab" data-toggle="tab" data-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">images</button>
+                <button class="nav-link" id="images-tab" data-toggle="tab" data-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">Images</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tags-tab" data-toggle="tab" data-target="#tags" type="button" role="tab" aria-controls="tags" aria-selected="false">tags</button>
+                <button class="nav-link" id="tags-tab" data-toggle="tab" data-target="#tags" type="button" role="tab" aria-controls="tags" aria-selected="false">Tags</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="attribute-tab" data-toggle="tab" data-target="#attribute" type="button" role="tab" aria-controls="attribute" aria-selected="false">attribute</button>
+                <button class="nav-link" id="attribute-tab" data-toggle="tab" data-target="#attribute" type="button" role="tab" aria-controls="attribute" aria-selected="false">Attribute</button>
               </li>
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="meta-tab" data-toggle="tab" data-target="#meta" type="button" role="tab" aria-controls="meta" aria-selected="false">meta</button>
+                <button class="nav-link" id="meta-tab" data-toggle="tab" data-target="#meta" type="button" role="tab" aria-controls="meta" aria-selected="false">Meta Properties</button>
               </li>
             </ul>
             {!! Form::open(['route' => 'backend.product.store','files' => true]) !!}
@@ -57,10 +57,10 @@
                   @include('backend.product.includes.tags_form',['button'=>'Save Product'])
                 </div>
                 <div class="tab-pane fade" id="attribute" role="tabpanel" aria-labelledby="attribute-tab">
-                  here comes form fields for attribute
+                  @include('backend.product.includes.attribute_form',['button'=>'Save Product'])
                 </div>
                 <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
-                  here comes form fields for meta
+                  @include('backend.product.includes.meta_form',['button'=>'Save Product'])
                 </div>
               </div>
             {!! Form::close() !!}
@@ -74,7 +74,7 @@
  
     <!-- /.content -->
   @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{asset('backend/plugins/select2/js/select2.min.js')}}"></script>
     <script>
       $("#title").keyup(function(){
             var Text = $(this).val();
@@ -83,11 +83,33 @@
             $("#slug").val(Text);
         });
       
-        $('.multiple_tags').select2({
-            theme: 'bootstrap4'
+        $('.multiple_tags').select2();
+        var row = 1;
+        $("#addMoreImage").click(function() {
+          var row_limit = 5;
+          
+          if(row<row_limit){
+            row++;
+            
+            $("#image_wrapper tr:last").after(`<tr>
+              <td>
+                  <input type="file" name="image_title[]" class="form-control"/></td>
+              <td>
+                <button id="blank" class="btn btn-danger remove_row"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>`);
+          }else{
+            alert("You can add only add "+row_limit+" rows");
+          }
+          
         });
+         $("#image_wrapper").on("click", ".remove_row", function (e) {
+          e.preventDefault();
+          $(this).parents("tr").remove();
+          row--;
+        });
+
     </script>
-    @include('backend.product.includes.add_row_script')
 
   @endsection
 @endsection

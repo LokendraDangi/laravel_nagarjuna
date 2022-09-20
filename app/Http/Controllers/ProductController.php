@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         $data = [];
-        // $data['count_attribute']=1;
+        $data['count_attribute']=1;
         $data['count_image']=1;
         $data['categories'] = Category::where('status',1)->pluck('name','id');
         $data['subcategories'] = [];

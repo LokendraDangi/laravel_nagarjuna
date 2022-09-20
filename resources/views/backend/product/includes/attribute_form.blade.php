@@ -25,7 +25,7 @@
             </td>
             <td><input type="text" name="attribute_value[]" class="form-control" placeholder="Enter Attribute Value"/></td>
             <td>
-                <a class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i></a>
+                
             </td>
         </tr>
     @endif

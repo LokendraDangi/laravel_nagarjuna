@@ -54,10 +54,12 @@ Route::prefix('/backend')->name('backend.')->group(function(){
     Route::resource('subcategory', SubcategoryController::class);
 
     //products
-    Route::get('product/ajax/product/deleteattribute',[ProductController::class,'deleteProductattribute'])->name('ajax.product.deleteProductattribute');
-    Route::get('product/ajax/product/deleteImage',[ProductController::class,'deleteProductImage'])->name('ajax.product.deleteProductImage');
+    // Route::get('product/ajax/product/deleteattribute',[ProductController::class,'deleteProductattribute'])->name('ajax.product.deleteProductattribute');
+    // Route::get('product/ajax/product/deleteImage',[ProductController::class,'deleteProductImage'])->name('ajax.product.deleteProductImage');
+    
     Route::delete('product/force-delete/{id}',[ProductController::class,'forceDelete'])->name('product.force_delete');
     Route::put('product/restore/{id}',[ProductController::class,'restore'])->name('product.restore');
     Route::get('product/trash',[ProductController::class,'trash'])->name('product.trash');
+    
     Route::resource('product',ProductController::class);
 });

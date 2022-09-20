@@ -6,7 +6,7 @@
     $(add_button_attribute).click(function (e) { //on add input button click
         e.preventDefault();
         var max_fields = 5; //maximum input boxes allowed
-        if (y < max_fields+1) { //max input box allowed
+        if (y < max_fields) { //max input box allowed
             y++; //text box increment
             //add new row
             $("#attribute_wrapper tr:last").after(
