@@ -1,109 +1,74 @@
 @extends('backend.layouts.master')
-@section('title',$title)
-@section('panel',$panel)
-@section('entryoptionactive','active')
-@section('productactive','active')
+@section('title','Edit Product')
 @section('content')
-    <!-- Default box -->
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">{{$title}}</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a class="nav-link active" href="#basic_information_tab" data-toggle="tab">Basic Information</a></li>
-                <li class="nav-item"><a class="nav-link" href="#images_tabl" data-toggle="tab">Image</a></li>
-                <li class="nav-item"><a class="nav-link" href="#attributes_tab" data-toggle="tab">Attribute</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tags_tab" data-toggle="tab">Tags</a></li>
-                <li class="nav-item"><a class="nav-link" href="#meta_tab" data-toggle="tab">Meta Information</a></li>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1 class="m-0">Product Management</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="{{route('backend.product.index')}}">Product</a></li>
+                  <li class="breadcrumb-item active">Edit</li>
+              </ol>
+          </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+     <!-- Content Header (Page header) -->
+    
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+          <div class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="basic-tab" data-toggle="tab" data-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic Information</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="images-tab" data-toggle="tab" data-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">Images</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tags-tab" data-toggle="tab" data-target="#tags" type="button" role="tab" aria-controls="tags" aria-selected="false">Tags</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="attribute-tab" data-toggle="tab" data-target="#attribute" type="button" role="tab" aria-controls="attribute" aria-selected="false">Attribute</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="meta-tab" data-toggle="tab" data-target="#meta" type="button" role="tab" aria-controls="meta" aria-selected="false">Meta Properties</button>
+              </li>
             </ul>
-        </div><!-- /.card-header -->
-        {{--@include('backend.includes.flash_message')--}}
-        {!! Form::model($data['record'], ['route' => [$base_route . 'update',$data['record']->id],'files' => true,'method' => 'PUT']) !!}
-        <div class="card-body">
-            <div class="tab-content">
-                <div class="active tab-pane" id="basic_information_tab">
-                    @include($view_path . 'includes.main_form',['button' => 'Update'])
+            {!! Form::open(['route' => 'backend.product.store','files' => true]) !!}
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                  @include('backend.product.includes.main_form',['button'=>'Save Product'])
                 </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="images_tabl">
-                    @include($view_path . 'includes.images_form')
+                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                  @include('backend.product.includes.images_form',['button'=>'Save Product'])
                 </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="attributes_tab">
-                    @include($view_path . 'includes.attribute_form')
+                <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
+                  @include('backend.product.includes.tags_form',['button'=>'Save Product'])
                 </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tags_tab">
-                    @include($view_path . 'includes.tags_form')
+                <div class="tab-pane fade" id="attribute" role="tabpanel" aria-labelledby="attribute-tab">
+                  @include('backend.product.includes.attribute_form',['button'=>'Save Product'])
                 </div>
-            {{--Meta form--}}
-            <!-- /.tab-pane -->
-                <div class="tab-pane" id="meta_tab">
-                    @include($view_path . 'includes.meta_form')
+                <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+                  @include('backend.product.includes.meta_form',['button'=>'Save Product'])
                 </div>
-            </div>
-            <!-- /.tab-content -->
-        </div><!-- /.card-body -->
-        <div class="card-footer">
-            <div class="form-group">
-                {!! Form::submit('Update ' .  $panel,['class' => 'btn btn-primary']); !!}
-            </div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-    <!-- /.card -->
+              </div>
+            {!! Form::close() !!}
+
+            
+               
+
+          </div>
+      </div><!-- /.container-fluid -->
+    </section>
 @endsection
-@section('css')
-    <link rel="stylesheet" href="{{asset('assets/backend/plugins/select2/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-@endsection
-@section('js')
-    <script src="{{asset('assets/backend/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script>
-        $("#title").keyup(function(){
-            var Text = $(this).val();
-            Text = Text.toLowerCase();
-            Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
-            $("#slug").val(Text);
-        });
 
-        $('.multiple_tags').select2({
-            theme: 'bootstrap4'
-        });
-        $('#category_id').change(function(){
-            var category_id = $(this).val();
-            if(category_id != ''){
-                var path = "{{route('backend.ajax.category.getSubcategory')}}";
-                $.ajax({
-                    url:path,
-                    data:{'category_id':category_id},
-                    method:'get',
-                    dataType:'text',
-                    success:function(resp) {
-                        $('#subcategory_id').empty();
-                        $('#subcategory_id').append(resp);
-                    }
-                });
-            } else {
 
-                $('#subcategory_id').empty();
-                $('#subcategory_id').append("<option value=''>Select Subcategory</option>");
-
-            }
-
-        });
-    </script>
-    @include($view_path . 'includes.add_row_script')
-    @include($view_path . 'includes.add_row_script_attribute')
-@endsection
 
