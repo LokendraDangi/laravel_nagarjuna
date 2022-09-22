@@ -99,7 +99,7 @@
 
         });
     </script>
-    @include($view_path . 'includes.add_row_script')
-    @include($view_path . 'includes.add_row_script_attribute')
+    @include('backend.product.includes.add_row_script')
+    @include('backend.product.includes.add_row_script_attribute')
     @endsection
 

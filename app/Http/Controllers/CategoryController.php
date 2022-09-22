@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
@@ -203,5 +204,19 @@ class CategoryController extends Controller
             $request->session()->flash('error', 'Category Deletion failed');
         }
         return redirect()->route('backend.category.trash');
+    }
+
+    function getSubcategory(){
+        $category_id = $_GET['category_id'];
+        
+        
+        $subcategory =Subcategory::where('category_id',$category_id)->get(['name','id']);
+
+        $option = "<option value=''>Select Subcategory</option>";
+        foreach($subcategory as $sub){
+            
+            $option.= "<option value='$sub->id'>$sub->name</option>";
+        }
+        return $option;
     }
 }

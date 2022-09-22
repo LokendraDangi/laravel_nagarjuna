@@ -5,20 +5,20 @@
 @endsection
 @section('main-content')
 <div class="content-header">
-      <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-            <h1 class="m-0">Product Management</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('backend.product.index')}}">Product</a></li>
-                    <li class="breadcrumb-item active">Create</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-  </div>
+    <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1 class="m-0">Product Management</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="{{route('backend.product.index')}}">Product</a></li>
+                  <li class="breadcrumb-item active">Create</li>
+              </ol>
+          </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
      <!-- Content Header (Page header) -->
     
     <!-- /.content-header -->
@@ -71,6 +71,7 @@
           </div>
       </div><!-- /.container-fluid -->
     </section>
+  
  
     <!-- /.content -->
   @section('js')
@@ -84,8 +85,11 @@
         });
       
         $('.multiple_tags').select2();
+
+        // for images_form cloning
         var row = 1;
-        $("#addMoreImage").click(function() {
+        $("#addMoreImage").click(function(e) {
+          e.preventDefault();
           var row_limit = 5;
           
           if(row<row_limit){
@@ -99,7 +103,7 @@
               </td>
             </tr>`);
           }else{
-            alert("You can add only add "+row_limit+" rows");
+            alert("You can add only add "+row_limit+" Images");
           }
           
         });
@@ -108,6 +112,61 @@
           $(this).parents("tr").remove();
           row--;
         });
+        
+        // clone for image attributes
+        var arow = 1;
+        $("#addMoreAttribute").click(function(e) {
+          e.preventDefault();
+          var arow_limit = 5;
+          
+          if(arow<arow_limit){
+            arow++;
+            
+            $("#attribute_wrapper tr:last").after(
+              '<tr>'+
+                '   <td>{!! Form::select('attribute_id[]',$data['attributes'],null,['class' => 'form-control','placeholder' => "Select Attribute"]) !!}'+
+                '   </td>'+
+                '   <td><input type="text" name="attribute_value[]" class="form-control" placeholder="Enter Attribute Value"/></td>'+
+                '   <td>'+
+                '<button id="blank" class="btn btn-danger remove_row"><i class="fa fa-trash"></i></button>'+
+
+                '   </td>'+
+                '</tr>'
+            );
+          }else{
+            alert("You can add only add "+arow_limit+" Attributes");
+          }
+          
+        });
+         $("#attribute_wrapper").on("click", ".remove_row", function (e) {
+          e.preventDefault();
+          $(this).parents("tr").remove();
+          arow--;
+        });
+
+        //get subcategory as per category
+        $("#category_id").change(function(e){
+          e.preventDefault();
+          var cat_id = $(this).val();
+          if(cat_id != ''){
+                $.ajax({
+                    url:`{{route('backend.category.subcategory')}}`,
+                    data:{'category_id':cat_id},
+                    method:'get',
+                    dataType:'text',
+                    success:function(resp) {
+                      $("#subcategory_id").empty();
+                      $("#subcategory_id").append(resp);
+                    }
+                });
+            } else {
+
+                $('#subcategory_id').empty();
+                $('#subcategory_id').append("<option value=''>Select Subcategory</option>");
+
+            }
+          
+        })
 
     </script>
 

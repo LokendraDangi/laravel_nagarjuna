@@ -42,6 +42,7 @@ Route::prefix('/backend')->name('backend.')->group(function(){
 
 
     //routes for category
+    Route::get('category/subcategory',[CategoryController::class, 'getSubcategory'])->name('category.subcategory');
     Route::delete('category/force-delete/{id}',[CategoryController::class,'forceDelete'])->name('category.force_delete');
     Route::put('/category/restore/{id}',[CategoryController::class,'restore'])->name('category.restore');
     Route::get('/category/trash',[CategoryController::class,'trash'])->name('category.trash');
